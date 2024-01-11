@@ -4,31 +4,21 @@ from io import BytesIO
 import requests
 import datetime
 
-today = datetime.datetime.today().strftime('%Y%m%d')
-def get_images():
+def get_images(dtype):
     image_urls = [
-        "https://publik.bmkg.go.id/cawo/inacawo/InaCAWO_Mean_6hr_Indo_"+today+"060000.png",
-        "https://publik.bmkg.go.id/cawo/inacawo/InaCAWO_Mean_6hr_Indo_"+today+"120000.png",
-        "https://publik.bmkg.go.id/cawo/inacawo/InaCAWO_Mean_6hr_Indo_"+today+"180000.png",
-        "https://publik.bmkg.go.id/cawo/inacawo/InaCAWO_Mean_6hr_Indo_"+today+"000000.png",
-        "https://publik.bmkg.go.id/cawo/inacawo/InaCAWO_Mean_6hr_Indo_"+today+"060000.png"
+        f"https://publik.bmkg.go.id/cawo/inacawo/InaCAWO_{dtype}_6hr_Indo_{(datetime.datetime.today().replace(hour=0)+datetime.timedelta(hours=dh)).strftime('%Y%m%d%H')}0000.png" for dh in range(12,72,6)
     ]
+    print(image_urls)
     images = [Image.open(BytesIO(requests.get(url).content)) for url in image_urls]
     return images
 
-def main():
-    st.title("Uji Coba menampilkan gambar")
-
-    images = get_images()
-    num_images = len(images)
-
-    # Menggunakan session_state untuk menyimpan indeks saat ini
+def imview(images,num_images):
     session_state = st.session_state
     if "current_index" not in session_state:
         session_state.current_index = 0
 
     if num_images == 0:
-        st.error("Tidak dapat mengambil gambar dari tautan yang diberikan.")
+        st.error("Tidak ada file PNG dalam direktori yang diberikan.")
         return
 
     # Menampilkan gambar saat ini
@@ -42,17 +32,19 @@ def main():
     if st.button("Next") and session_state.current_index < num_images - 1:
         session_state.current_index += 1
 
+def main():
+    st.title("InaCAWO Data Display Platform (BETA)")
+
     # Menampilkan tombol untuk memilih gambar berdasarkan timestamp
-    timestamps = ["060000", "090000", "120000", "150000", "180000"]
-    selected_timestamp = st.selectbox("Select a timestamp", timestamps)
+    datatypes = ["Mean", "POE5", "POE10", "POE20", "POE50"]
+    selected_type = st.selectbox("Select a data type", datatypes)
 
     # Menampilkan gambar berdasarkan timestamp yang dipilih
-    if st.button("Show Image"):
-        try:
-            index = timestamps.index(selected_timestamp)
-            st.image(images[index])
-        except ValueError:
-            st.warning("Timestamp not found.")
+    dtype = selected_type
+    images = get_images(dtype)
+    num_images = len(images)
+
+    imview(images,num_images)
 
 if __name__ == "__main__":
     main()
