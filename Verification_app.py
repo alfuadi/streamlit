@@ -30,7 +30,6 @@ selected_start_time = pd.to_datetime(selected_start_time)
 selected_end_time = pd.to_datetime(selected_end_time)
 
 # Filter DataFrame berdasarkan pilihan pengguna
-filtered_df = df[(df['Prov'] == selected_prov) & (df['Time'] >= selected_start_time) & (df['Time'] <= selected_end_time)]
 timefiltered_df = df[(df['Time'] >= selected_start_time) & (df['Time'] <= selected_end_time)]
 
 # ====================================================================================
