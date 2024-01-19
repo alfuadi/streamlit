@@ -86,7 +86,7 @@ else:
         datelist = [datetime.datetime(2024,1,1)+datetime.timedelta(dt) for dt in range(31)]
         bof = pd.DataFrame({'fct':fct_name, 'Time':datelist})
         dbof = pd.merge(bof,filtered_df, on='Time')
-        acc_fct = dbof[['Time','ftc','Accuracy_WW','Accuracy_WW']].groupby('fct').mean().reset_index()
+        acc_fct = dbof[['Time','fct','Accuracy_WW','Accuracy_WW']].groupby('fct').mean().reset_index()
         st.dataframe(acc_fct)
 
     # Hitung nilai statistik
