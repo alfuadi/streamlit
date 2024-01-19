@@ -114,6 +114,6 @@ else:
 # ===============================Tampilkan tabel statistik================================
 # Grafik Time Series untuk Rata-rata Agregasi Seluruh Provinsi
 st.header('Time Series Graph')
-st.dataframe(filtered_df)
 avg_df = filtered_df.groupby('Time').mean().reset_index()
+st.dataframe(avg_df)
 fig_time_series = st.line_chart(avg_df, x='Time', y=['Accuracy_WW', 'Accuracy_GSMaP'])
