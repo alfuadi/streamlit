@@ -29,8 +29,8 @@ if selected_app=='Model Evaluation':
     de = pd.read_csv(StringIO(data_text1), delimiter=",")
     de['Valid'] = pd.to_datetime(de['Valid'])
 
-    selected_start_time = st.sidebar.date_input('Pilih Waktu Awal:', de['Valid'].min())
-    selected_end_time = st.sidebar.date_input('Pilih Waktu Akhir:', de['Valid'].max())
+    selected_start_time = st.sidebar.date_input('Select The First Date:', de['Valid'].min())
+    selected_end_time = st.sidebar.date_input('Select The Last Date:', de['Valid'].max())
     selected_start_time = pd.to_datetime(selected_start_time)
     selected_end_time = pd.to_datetime(selected_end_time)
     timefiltered_df = de[(de['Valid'] >= selected_start_time) & (de['Valid'] <= selected_end_time)]
@@ -62,9 +62,9 @@ else:
   df['Time'] = pd.to_datetime(df['Time'])
   
   # Sidebar filter
-  selected_prov = st.sidebar.selectbox('Pilih Provinsi:', df['Prov'].unique())
-  selected_start_time = st.sidebar.date_input('Pilih Waktu Awal:', df['Time'].min())
-  selected_end_time = st.sidebar.date_input('Pilih Waktu Akhir:', df['Time'].max())
+  selected_prov = st.sidebar.selectbox('Select Province:', df['Prov'].unique())
+  selected_start_time = st.sidebar.date_input('Select The First Date:', df['Time'].min())
+  selected_end_time = st.sidebar.date_input('Select The Last Date:', df['Time'].max())
   selected_start_time = pd.to_datetime(selected_start_time)
   selected_end_time = pd.to_datetime(selected_end_time)
   
