@@ -63,8 +63,7 @@ def mapview(df):
 if selected_prov=='-Indonesia-':
     filtered_df = df[(df['Time'] >= selected_start_time) & (df['Time'] <= selected_end_time)]
     st.header('General Overview of Accuracy Score')
-    df=df_merged1
-    mapview(df)
+    mapview(df_merged1)
     st.write(f'Overall the average of accuracy scores between {selected_start_time} to {selected_end_time}\
             are {round(timefiltered_df.Accuracy_WW.mean()*100,1)}%(Surface based Obs) and {round(timefiltered_df.Accuracy_GSMaP.mean()*100,1)}% (GSMaP).\n\
             The lowest score based on surface based observation belong to {df_merged1["Prov"].iloc[df_merged1.Accuracy_WW.idxmin()]}({round(df_merged1.Accuracy_WW.min()*100,1)}%)\
