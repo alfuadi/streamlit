@@ -5,5 +5,4 @@ streamlit_folium
 branca
 numpy
 folium
-seaborn
 matplotlib
