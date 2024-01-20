@@ -6,3 +6,4 @@ branca
 numpy
 folium
 matplotlib
+streamlit-authenticator
