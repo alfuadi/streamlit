@@ -7,3 +7,4 @@ numpy
 folium
 matplotlib
 streamlit-authenticator
+seaborn
