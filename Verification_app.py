@@ -123,7 +123,7 @@ else:
           datelist = [datetime.datetime(y,m,d) for y,m,d in zip(de_fct['Tahun'],de_fct['Bulan'],de_fct['Tanggal'])]
           de_fct['Time'] = datelist
           dbof = pd.merge(de_fct,filtered_df, on='Time')
-          acc_fct = dbof[['fct','Accuracy_SfcObs','Accuracy_GSMaP']].groupby('fct').mean().reset_index()
+          acc_fct = dbof[['Forecaster','Accuracy_SfcObs','Accuracy_GSMaP']].groupby('Forecaster').mean().reset_index()
           st.dataframe(acc_fct)
   
       # Hitung nilai statistik
