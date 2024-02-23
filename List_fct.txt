@@ -1,0 +1,61 @@
+Tahun,Bulan,Tanggal,Forecaster
+2024,1,1,Ayudya PS Putri
+2024,1,2,Dendi R Purnama
+2024,1,3,Praditya Tito Yosandi
+2024,1,4,Dendi R Purnama
+2024,1,5,Ayudya PS Putri
+2024,1,6,Bagas B
+2024,1,7,Nanda Alfuadi
+2024,1,8,Bagas B
+2024,1,9,Nanda Alfuadi
+2024,1,10,Bagas B
+2024,1,11,Ayudya PS Putri
+2024,1,12,Nur Rahmat Jatmiko
+2024,1,13,Praditya Tito Yosandi
+2024,1,14,Dendi R Purnama
+2024,1,15,Nanda Alfuadi
+2024,1,16,Bagas B
+2024,1,17,Ayudya PS Putri
+2024,1,18,Praditya Tito Yosandi
+2024,1,19,Nur Rahmat Jatmiko
+2024,1,20,Dendi R Purnama
+2024,1,21,Nanda Alfuadi
+2024,1,22,Bagas B
+2024,1,23,Ayudya PS Putri
+2024,1,24,Praditya Tito Yosandi
+2024,1,25,Nur Rahmat Jatmiko
+2024,1,26,Dendi R Purnama
+2024,1,27,Nanda Alfuadi
+2024,1,28,Bagas B
+2024,1,29,Nur Rahmat Jatmiko
+2024,1,30,Praditya Tito Yosandi
+2024,1,31,Dendi R Purnama
+2024,2,1,Nanda Alfuadi
+2024,2,2,Praditya Tito Yosandi
+2024,2,3,Nur Rahmat Jatmiko
+2024,2,4,Dendi R Purnama
+2024,2,5,Praditya Tito Yosandi
+2024,2,6,Ayudya PS Putri
+2024,2,7,Bagas B
+2024,2,8,Nur Rahmat Jatmiko
+2024,2,9,Nanda Alfuadi
+2024,2,10,Ayudya PS Putri
+2024,2,11,Bagas B
+2024,2,12,Nanda Alfuadi
+2024,2,13,Bagas B
+2024,2,14,Nur Rahmat Jatmiko
+2024,2,15,Ayudya PS Putri
+2024,2,16,Dendi R Purnama
+2024,2,17,Praditya Tito Yosandi
+2024,2,18,Dendi R Purnama
+2024,2,19,Praditya Tito Yosandi
+2024,2,20,Nur Rahmat Jatmiko
+2024,2,21,Nanda Alfuadi
+2024,2,22,Dendi R Purnama
+2024,2,23,Bagas B
+2024,2,24,Praditya Tito Yosandi
+2024,2,25,Nanda Alfuadi
+2024,2,26,Praditya Tito Yosandi
+2024,2,27,Nanda Alfuadi
+2024,2,28,Ayudya PS Putri
+2024,2,29,Nur Rahmat Jatmiko
