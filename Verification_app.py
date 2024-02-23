@@ -115,16 +115,14 @@ else:
       st.write('Time Range:', f'{selected_start_time} to {selected_end_time}')
   
       if selected_prov=='DKI JAKARTA':
-          fct_name=['Ayudya PS Putri','Dendi R Purnama','Praditya Tito Yosandi','Dendi R Purnama','Ayudya PS Putri','Bagas B','Nanda Alfuadi',
-                  'Bagas B','Nanda Alfuadi','Bagas B','Ayudya PS Putri','Nur Rahmat Jatmiko',
-                  'Praditya Tito Yosandi','Dendi R Purnama','Nanda Alfuadi','Bagas B','Ayudya PS Putri',
-                  'Praditya Tito Yosandi','Nur Rahmat Jatmiko','Dendi R Purnama','Nanda Alfuadi',
-                  'Bagas B','Ayudya PS Putri','Praditya Tito Yosandi','Nur Rahmat Jatmiko',
-                  'Dendi R Purnama','Nanda Alfuadi','Bagas B','Nur Rahmat Jatmiko','Praditya Tito Yosandi',
-                  'Dendi R Purnama']
-          datelist = [datetime.datetime(2024,1,1)+datetime.timedelta(dt) for dt in range(31)]
-          bof = pd.DataFrame({'fct':fct_name, 'Time':datelist})
-          dbof = pd.merge(bof,filtered_df, on='Time')
+          url_fct = 'https://raw.githubusercontent.com/alfuadi/streamlit/main/List_fct.txt'
+          response_fct = requests.get(url_fct)
+          data_text_fct = response_fct.text
+          de_fct = pd.read_csv(StringIO(data_text_fct), delimiter=",")
+
+          datelist = [datetime.datetime(y,m,d) for y,m,d in zip(de_fct['Tahun'],de_fct['Bulan'],de_fct['Tanggal'])]
+          de_fct['Time'] = datelist
+          dbof = pd.merge(de_fct,filtered_df, on='Time')
           acc_fct = dbof[['fct','Accuracy_SfcObs','Accuracy_GSMaP']].groupby('fct').mean().reset_index()
           st.dataframe(acc_fct)
   
