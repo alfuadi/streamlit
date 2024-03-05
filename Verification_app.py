@@ -99,6 +99,7 @@ else:
       st_data = st_folium(m, width=700, height=400)
   
   if selected_prov=='-Indonesia-':
+      print(df_merged1.Accuracy_WW.idxmin())
       filtered_df = df[(df['Time'] >= selected_start_time) & (df['Time'] <= selected_end_time)]
       st.header('General Overview of Accuracy Score')
       mapview(df_merged1)
