@@ -54,7 +54,7 @@ else:
   df = pd.read_csv(StringIO(data_text), delimiter=",")
   dall = pd.DataFrame({'Time':[datetime.datetime(2024,1,1)],
                       'Prov':['-Indonesia-'],
-                      'Accuracy_SfcObs':[np.nan],
+                      'Accuracy_WW':[np.nan],
                       'Accuracy_TT':[np.nan],
                       'Accuracy_RH':[np.nan],
                       'Accuracy_GSMaP':[np.nan]})
@@ -77,7 +77,7 @@ else:
   lon_list = [96.7493993,99.5450974,100.8000051,101.7068294,102.4380581,103.914399,102.3463875,105.4068079,106.4405872,108.1428669,106.845172,107.668887,110.1402594,110.4262088,112.2384017,106.0640179,115.188916,117.3616476,121.0793705,111.4752851,113.3823545,115.2837585,116.419389,117.3777922,123.9750018,121.4456179,119.9740534,122.174605,122.4467238,119.2320784,130.1452734,127.8087693,133.1747162,138.0803529]
   
   coords = pd.DataFrame({'Prov':prov_list,'lon':lon_list,'lat':lat_list})
-  df_merged1 = timefiltered_df[['Prov','Time','Accuracy_SfcObs']].groupby('Prov').mean().merge(coords, on='Prov')
+  df_merged1 = timefiltered_df[['Prov','Time','Accuracy_WW']].groupby('Prov').mean().merge(coords, on='Prov')
   df_merged2 = timefiltered_df[['Prov','Time','Accuracy_GSMaP']].groupby('Prov').mean().merge(coords, on='Prov')
   
   def mapview(df):
@@ -85,15 +85,14 @@ else:
       # Membuat peta folium untuk custom marker
       color_scale = cm.LinearColormap(["blue", "green", "yellow", "red"], vmin=0, vmax=1)
       for i in range(len(df)):
-          print(df['Accuracy_SfcObs'][i])
           folium.CircleMarker(
               location=[df['lat'][i], df['lon'][i]],
-              radius=df['Accuracy_SfcObs'][i]*10,
-              color=color_scale(df['Accuracy_SfcObs'][i]),  # Warna marker
+              radius=df['Accuracy_WW'][i]*10,
+              color=color_scale(df['Accuracy_WW'][i]),  # Warna marker
               fill=True,
-              fill_color=color_scale(df['Accuracy_SfcObs'][i]),
+              fill_color=color_scale(df['Accuracy_WW'][i]),
               fill_opacity=0.7,
-              tooltip=f"{df['Prov'][i]} - Accuracy: {df['Accuracy_SfcObs'][i]*100}"
+              tooltip=f"{df['Prov'][i]} - Accuracy: {df['Accuracy_WW'][i]*100}"
           ).add_to(m)
       color_scale.caption = 'Accuracy'
       color_scale.add_to(m)
@@ -104,10 +103,10 @@ else:
       st.header('General Overview of Accuracy Score')
       mapview(df_merged1)
       st.write(f'Overall the average of accuracy scores between {selected_start_time} to {selected_end_time}\
-              are {round(timefiltered_df.Accuracy_SfcObs.mean()*100,1)}%(Surface based Obs) and {round(timefiltered_df.Accuracy_GSMaP.mean()*100,1)}% (GSMaP).\n\
-              The lowest score based on surface based observation belong to {df_merged1["Prov"].iloc[df_merged1.Accuracy_SfcObs.idxmin()]}({round(df_merged1.Accuracy_SfcObs.min()*100,1)}%)\
+              are {round(timefiltered_df.Accuracy_WW.mean()*100,1)}%(Surface based Obs) and {round(timefiltered_df.Accuracy_GSMaP.mean()*100,1)}% (GSMaP).\n\
+              The lowest score based on surface based observation belong to {df_merged1["Prov"].iloc[df_merged1.Accuracy_WW.idxmin()]}({round(df_merged1.Accuracy_WW.min()*100,1)}%)\
               and based on GSMaP data belong to {df_merged1["Prov"].iloc[df_merged2.Accuracy_GSMaP.idxmin()]}({round(df_merged2.Accuracy_GSMaP.min()*100,1)}%).\
-              Meanwhile, the highest score based on surface based observation belong to {df_merged1["Prov"].iloc[df_merged1.Accuracy_SfcObs.idxmax()]}({round(df_merged1.Accuracy_SfcObs.max()*100,1)}%)\
+              Meanwhile, the highest score based on surface based observation belong to {df_merged1["Prov"].iloc[df_merged1.Accuracy_WW.idxmax()]}({round(df_merged1.Accuracy_WW.max()*100,1)}%)\
               and based on GSMaP data belong to {df_merged1["Prov"].iloc[df_merged2.Accuracy_GSMaP.idxmax()]}({round(df_merged2.Accuracy_GSMaP.max()*100,1)}%).')
   else:
       filtered_df = df[(df['Prov'] == selected_prov) & (df['Time'] >= selected_start_time) & (df['Time'] <= selected_end_time)]
@@ -124,13 +123,13 @@ else:
           datelist = [datetime.datetime(y,m,d) for y,m,d in zip(de_fct['Tahun'],de_fct['Bulan'],de_fct['Tanggal'])]
           de_fct['Time'] = datelist
           dbof = pd.merge(de_fct,filtered_df, on='Time')
-          acc_fct = dbof[['Forecaster','Accuracy_SfcObs','Accuracy_GSMaP']].groupby('Forecaster').mean().reset_index()
+          acc_fct = dbof[['Forecaster','Accuracy_WW','Accuracy_GSMaP']].groupby('Forecaster').mean().reset_index()
           st.dataframe(acc_fct)
   
       # Hitung nilai statistik
-      min_Accuracy_SfcObs = filtered_df['Accuracy_SfcObs'].min()
-      max_Accuracy_SfcObs = filtered_df['Accuracy_SfcObs'].max()
-      mean_Accuracy_SfcObs = filtered_df['Accuracy_SfcObs'].mean()
+      min_Accuracy_WW = filtered_df['Accuracy_WW'].min()
+      max_Accuracy_WW = filtered_df['Accuracy_WW'].max()
+      mean_Accuracy_WW = filtered_df['Accuracy_WW'].mean()
   
       min_accuracy_gsmap = filtered_df['Accuracy_GSMaP'].min()
       max_accuracy_gsmap = filtered_df['Accuracy_GSMaP'].max()
@@ -139,7 +138,7 @@ else:
       # Tampilkan tabel
       statistic_table_data = {
           'Statistik': ['Akurasi Minimum', 'Akurasi Maksimum', 'Akurasi Rata-rata'],
-          'Obs.Permukaan': [min_Accuracy_SfcObs, max_Accuracy_SfcObs, mean_Accuracy_SfcObs],
+          'Obs.Permukaan': [min_Accuracy_WW, max_Accuracy_WW, mean_Accuracy_WW],
           'GSMaP': [min_accuracy_gsmap, max_accuracy_gsmap, mean_accuracy_gsmap]
       }
   
@@ -151,5 +150,5 @@ else:
   # ===============================Tampilkan tabel statistik================================
   # Grafik Time Series untuk Rata-rata Agregasi Seluruh Provinsi
   st.header('Time Series Graph')
-  avg_df = filtered_df[['Time','Accuracy_SfcObs','Accuracy_GSMaP']].dropna().groupby('Time').mean().reset_index()
-  fig_time_series = st.line_chart(avg_df, x='Time', y=['Accuracy_SfcObs', 'Accuracy_GSMaP'])
+  avg_df = filtered_df[['Time','Accuracy_WW','Accuracy_GSMaP']].dropna().groupby('Time').mean().reset_index()
+  fig_time_series = st.line_chart(avg_df, x='Time', y=['Accuracy_WW', 'Accuracy_GSMaP'])
