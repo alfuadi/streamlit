@@ -85,6 +85,7 @@ else:
       # Membuat peta folium untuk custom marker
       color_scale = cm.LinearColormap(["blue", "green", "yellow", "red"], vmin=0, vmax=1)
       for i in range(len(df)):
+          print(df['Accuracy_SfcObs'][i])
           folium.CircleMarker(
               location=[df['lat'][i], df['lon'][i]],
               radius=df['Accuracy_SfcObs'][i]*10,
